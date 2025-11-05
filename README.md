@@ -1,6 +1,6 @@
 # ✨ Premium Banner Downloader
 
-![UI Preview](https://anukalp2804.github.io/BannerForge/)
+![UI Preview](https://raw.githubusercontent.com/anukalp2804/premium-banner-downloader/main/preview.png)
 
 > 🎨 Create stunning **animated banners Design** with **Nitro Quality** themes, gradients, and effects — all in your browser.
 
