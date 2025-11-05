@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Discord Banner Creator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <style>
+        
+    </style> -->
+</head>
+<body>
+    <div class="header">
+        <h1>✨ Premium Banner Downloader</h1>
+        <p>Create stunning animated banners • <span class="badge">Nitro Quality</span></p>
+    </div>
+
+    <div class="banner-preview">
+        <canvas id="bannerCanvas" width="600" height="240"></canvas>
+    </div>
+
+    <div class="controls-container">
+        <div class="controls">
+            <div class="section">
+                <div class="section-title">📝 Text Content</div>
+                <div class="input-group">
+                    <label>Display Name</label>
+                    <input type="text" id="mainText" placeholder="Your Name" value="NITRO USER">
+                </div>
+                <div class="input-group">
+                    <label>Status / Tagline</label>
+                    <input type="text" id="subText" placeholder="Your status" value="Premium Member">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🎨 Premium Themes</div>
+                <div class="preset-grid">
+                    <button class="preset-btn holographic active" onclick="setTheme('holographic')">Holographic</button>
+                    <button class="preset-btn cyberpunk" onclick="setTheme('cyberpunk')">Cyberpunk</button>
+                    <button class="preset-btn aurora" onclick="setTheme('aurora')">Aurora</button>
+                    <button class="preset-btn sunset" onclick="setTheme('sunset')">Sunset</button>
+                    <button class="preset-btn cosmic" onclick="setTheme('cosmic')">Cosmic</button>
+                    <button class="preset-btn neon" onclick="setTheme('neon')">Neon Glow</button>
+                    <button class="preset-btn ocean" onclick="setTheme('ocean')">Ocean</button>
+                    <button class="preset-btn fire" onclick="setTheme('fire')">Fire</button>
+                    <button class="preset-btn forest" onclick="setTheme('forest')">Forest</button>
+                    <button class="preset-btn royal" onclick="setTheme('royal')">Royal</button>
+                    <button class="preset-btn rose" onclick="setTheme('rose')">Rose</button>
+                    <button class="preset-btn galaxy" onclick="setTheme('galaxy')">Galaxy</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">✨ Animation Effects</div>
+                <div class="animation-grid">
+                    <button class="animation-btn active" onclick="setAnimation('particles')">Particles</button>
+                    <button class="animation-btn" onclick="setAnimation('waves')">Waves</button>
+                    <button class="animation-btn" onclick="setAnimation('orbs')">Orbs</button>
+                    <button class="animation-btn" onclick="setAnimation('matrix')">Matrix</button>
+                    <button class="animation-btn" onclick="setAnimation('stars')">Stars</button>
+                    <button class="animation-btn" onclick="setAnimation('geometric')">Geometric</button>
+                    <button class="animation-btn" onclick="setAnimation('plasma')">Plasma</button>
+                    <button class="animation-btn" onclick="setAnimation('hexagons')">Hexagons</button>
+                    <button class="animation-btn" onclick="setAnimation('ripples')">Ripples</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="button-group">
+                    <button class="download-btn" onclick="downloadPNG()">
+                        📸 Download PNG
+                    </button>
+                    <button class="download-btn" onclick="generateGIF()" id="gifBtn">
+                        🎬 Download GIF
+                    </button>
+                </div>
+                <div id="status" class="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="gif.js"></script>
+
+</body>
+</html>
