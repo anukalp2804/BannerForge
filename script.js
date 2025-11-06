@@ -480,7 +480,7 @@ const canvas = document.getElementById('bannerCanvas');
                             quality: 10,
                             width: 600,
                             height: 240,
-                            workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+                            workerScript: './gif.worker.js'  // 👈 Local path instead of CDN
                         });
 
                         const tempCanvas = document.createElement('canvas');
