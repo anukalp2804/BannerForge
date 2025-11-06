@@ -64,21 +64,21 @@
             </div>
 
             <div class="section">
-                <button class="download-btn" onclick="downloadPNG()">
-                    📸 Download Static Banner (PNG)
-                </button>
-                <button class="download-btn" onclick="captureFrames()">
-                    🎬 Download Animated Banner (APNG)
-                </button>
-                <div id="status" class="status"></div>
-                <div class="info-box">
-                    💡 <strong>Tip:</strong> PNG works everywhere. APNG is animated and works in Discord! If APNG doesn't work, use PNG for a static banner.
+                <div class="button-group">
+                    <button class="download-btn" onclick="downloadPNG()">
+                        📸 Download PNG
+                    </button>
+                    <button class="download-btn" onclick="generateGIF()" id="gifBtn">
+                        🎬 Download GIF
+                    </button>
                 </div>
+                <div id="status" class="status"></div>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
     <script src="gif.js"></script>
+        
 </body>
 </html>

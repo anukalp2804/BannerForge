@@ -401,6 +401,7 @@ const canvas = document.getElementById('bannerCanvas');
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 4;
 
+            // Main text with gradient
             const textGradient = ctx.createLinearGradient(0, 80, 0, 130);
             textGradient.addColorStop(0, '#ffffff');
             textGradient.addColorStop(1, '#e0e0e0');
@@ -411,6 +412,7 @@ const canvas = document.getElementById('bannerCanvas');
             ctx.textBaseline = 'middle';
             ctx.fillText(mainText, 300, 105);
 
+            // Subtitle
             ctx.shadowBlur = 15;
             ctx.fillStyle = 'rgba(255,255,255,0.9)';
             ctx.font = '22px Arial, sans-serif';
@@ -447,7 +449,7 @@ const canvas = document.getElementById('bannerCanvas');
                 link.download = 'discord-banner.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                showStatus('✅ PNG banner downloaded successfully!', 'success');
+                showStatus('✅ PNG downloaded successfully!', 'success');
                 hideStatus();
             } catch(error) {
                 showStatus('❌ Error downloading PNG', 'error');
@@ -455,52 +457,85 @@ const canvas = document.getElementById('bannerCanvas');
             }
         }
 
-        async function captureFrames() {
-            showStatus('🎬 Capturing animation frames... Please wait', 'loading');
-            
-            try {
-                const frames = [];
-                const totalFrames = 20;
-                const savedFrame = frame;
+        function generateGIF() {
+            const gifBtn = document.getElementById('gifBtn');
+            gifBtn.disabled = true;
+            showStatus('🎨 Loading GIF library...', 'loading');
 
-                for(let i = 0; i < totalFrames; i++) {
-                    frame = savedFrame + i * 3;
-                    ctx.clearRect(0, 0, 600, 240);
-                    drawBackground();
-                    drawText();
-                    
-                    const imageData = canvas.toDataURL('image/png');
-                    frames.push(imageData);
-                    
-                    const progress = Math.round(((i + 1) / totalFrames) * 100);
-                    showStatus(`🎬 Capturing frames: ${progress}%`, 'loading');
-                    
-                    await new Promise(resolve => setTimeout(resolve, 50));
-                }
-
-                frame = savedFrame;
-                
-                showStatus('✨ Creating animated banner...', 'loading');
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const link = document.createElement('a');
-                link.download = 'discord-banner-animated.png';
-                link.href = frames[0];
-                link.click();
-                
-                showStatus('✅ Animated banner downloaded! (Frame 1 of 20)', 'success');
+            // Load gif.js library dynamically
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js';
+            script.onerror = function() {
+                showStatus('❌ Failed to load GIF library. Please try PNG download instead.', 'error');
+                gifBtn.disabled = false;
+                hideStatus();
+            };
+            script.onload = function() {
+                showStatus('🎬 Generating GIF... Please wait', 'loading');
                 
                 setTimeout(() => {
-                    showStatus('💡 Discord supports APNG. For full animation, try using an online APNG creator with these frames!', 'success');
-                    hideStatus();
-                }, 2000);
-                
-            } catch(error) {
-                showStatus('❌ Error creating animation. Try PNG download instead.', 'error');
-                hideStatus();
-            }
+                    try {
+                        const gif = new GIF({
+                            workers: 2,
+                            quality: 10,
+                            width: 600,
+                            height: 240,
+                            workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+                        });
+
+                        const tempCanvas = document.createElement('canvas');
+                        tempCanvas.width = 600;
+                        tempCanvas.height = 240;
+                        const tempCtx = tempCanvas.getContext('2d');
+
+                        const totalFrames = 40;
+                        let currentFrame = 0;
+                        const savedFrame = frame;
+
+                        function captureFrame() {
+                            if(currentFrame < totalFrames) {
+                                frame = savedFrame + currentFrame * 2;
+                                
+                                tempCtx.clearRect(0, 0, 600, 240);
+                                ctx.clearRect(0, 0, 600, 240);
+                                drawBackground();
+                                drawText();
+                                tempCtx.drawImage(canvas, 0, 0);
+                                
+                                gif.addFrame(tempCanvas, {delay: 50, copy: true});
+                                currentFrame++;
+                                
+                                const progress = Math.round((currentFrame/totalFrames)*100);
+                                showStatus(`🎬 Generating: ${progress}%`, 'loading');
+                                setTimeout(captureFrame, 10);
+                            } else {
+                                frame = savedFrame;
+                                gif.on('finished', function(blob) {
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'discord-nitro-banner.gif';
+                                    a.click();
+                                    showStatus('✨ Premium GIF downloaded successfully!', 'success');
+                                    gifBtn.disabled = false;
+                                    hideStatus();
+                                });
+                                gif.render();
+                            }
+                        }
+
+                        captureFrame();
+                    } catch(error) {
+                        showStatus('❌ Error generating GIF. Try PNG download instead.', 'error');
+                        gifBtn.disabled = false;
+                        hideStatus();
+                    }
+                }, 100);
+            };
+            document.head.appendChild(script);
         }
 
+        // Auto-update text
         document.getElementById('mainText').addEventListener('input', () => {});
         document.getElementById('subText').addEventListener('input', () => {});
 
