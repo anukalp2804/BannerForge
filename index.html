@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Discord Banner Creator</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <style>
-        
-    </style> -->
 </head>
 <body>
     <div class="header">
-        <h1>✨ Premium Banner Downloader</h1>
-        <p>Create stunning animated banners • <span class="badge">Nitro Quality</span></p>
+        <h1>✨ Premium Banner Studio</h1>
+        <p>Create stunning animated Discord banners • <span class="badge">Nitro Quality</span></p>
     </div>
 
     <div class="banner-preview">
@@ -67,21 +64,21 @@
             </div>
 
             <div class="section">
-                <div class="button-group">
-                    <button class="download-btn" onclick="downloadPNG()">
-                        📸 Download PNG
-                    </button>
-                    <button class="download-btn" onclick="generateGIF()" id="gifBtn">
-                        🎬 Download GIF
-                    </button>
-                </div>
+                <button class="download-btn" onclick="downloadPNG()">
+                    📸 Download Static Banner (PNG)
+                </button>
+                <button class="download-btn" onclick="captureFrames()">
+                    🎬 Download Animated Banner (APNG)
+                </button>
                 <div id="status" class="status"></div>
+                <div class="info-box">
+                    💡 <strong>Tip:</strong> PNG works everywhere. APNG is animated and works in Discord! If APNG doesn't work, use PNG for a static banner.
+                </div>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
     <script src="gif.js"></script>
-
 </body>
 </html>
